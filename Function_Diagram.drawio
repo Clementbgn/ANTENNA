@@ -1,32 +1,68 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 OPR/114.0.0.0" version="24.8.6">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="UGnYyzDelSOmIal4Z6f-">
-    <mxGraphModel dx="913" dy="583" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1781" dy="664" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-1" value="STAGE 1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-1" value="STAGE 1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="379" width="70" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-2" value="Fonction principale: Pointer une antenne sur monture équatoriales vers un satellite" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-2" value="Fonction principale: Pointer une antenne sur monture équatoriales vers un satellite" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="254" y="40" width="320" height="320" as="geometry" />
         </mxCell>
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tO6Z-8AhxxCTKm5LTyCO-2">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="tO6Z-8AhxxCTKm5LTyCO-2" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="80" y="200" as="sourcePoint" />
             <mxPoint x="440" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="574" y="199.5" as="sourcePoint" />
             <mxPoint x="748" y="199.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-5" value="INPUTS LIST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-5" value="INPUTS LIST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="50" y="150" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-6" value="OUTPUTS LIST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="tO6Z-8AhxxCTKm5LTyCO-6" value="OUTPUTS LIST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="720" y="140" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-1" value="STAGE 2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="379" y="380" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-2" value="Fonction 1: Localiser l&#39;antenne et le satellite et en déduire le décallage" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="50" y="410" width="320" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-3" value="Fonction 2: Pointer la monture vers le satellite" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="460" y="410" width="320" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dEY_4jAkA9OXkSPtr2j_-2" target="dEY_4jAkA9OXkSPtr2j_-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="570" as="sourcePoint" />
+            <mxPoint x="440" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-5" value="Différentiel de&amp;nbsp;&lt;div&gt;RA et Dec&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="364" y="530" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-6" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="dEY_4jAkA9OXkSPtr2j_-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-40" y="570" as="sourcePoint" />
+            <mxPoint x="440" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-7" value="Données Satellite" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="530" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-8" value="Commande Moteur" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="780" y="535" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dEY_4jAkA9OXkSPtr2j_-9" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="780" y="570" as="sourcePoint" />
+            <mxPoint x="870" y="570" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
