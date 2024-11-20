@@ -1,0 +1,1 @@
+Utilisation d’un site d’observation et position (AltAz): https://learn.astropy.org/tutorials/2-Coordinates-Transforms
