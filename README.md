@@ -6,10 +6,10 @@
 
 ## Status
 
-Getting TLE done + Visibility time done
+- [x] Get TLE for any Satellite knowing Norad_Id
+- [x] Detect visibility Time under a specific Delta T for a specific location
 
 ## Todo
-
 - [ ] Azimuth + Elevation
 - [ ] RA + Dec
 
