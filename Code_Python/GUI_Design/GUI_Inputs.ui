@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>558</width>
+    <height>592</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="styleSheet">
+      <string notr="true">image: url(:/Logo_Skynopy/Logo_Skynopy.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="sat_name_text">
+     <property name="text">
+      <string>Satellite name:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="sat_name_input">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>EIRSAT1</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="sat_id_text">
+     <property name="text">
+      <string>Satellite Norad Id:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="sat_id_input">
+     <property name="placeholderText">
+      <string>58472</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="long_text">
+     <property name="text">
+      <string>Observation site longitude:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="long_input">
+     <property name="placeholderText">
+      <string>2.0410521528514183</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lat_text">
+     <property name="text">
+      <string>Observation site latitude:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lat_input">
+     <property name="placeholderText">
+      <string>48.78797485885815</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="day_refresh_tle_text">
+     <property name="text">
+      <string>Number of day before refreshing TLE file:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="day_input">
+     <property name="placeholderText">
+      <string>2</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="min_elevation_text">
+     <property name="text">
+      <string>Minimum elevation for visibility detection:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="min_elev_input">
+     <property name="placeholderText">
+      <string>30</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="deltat_detection_text">
+     <property name="text">
+      <string>Hours for visibility detection from now:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="deltat_visibiliti_input">
+     <property name="placeholderText">
+      <string>24</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="ressources/Ressources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

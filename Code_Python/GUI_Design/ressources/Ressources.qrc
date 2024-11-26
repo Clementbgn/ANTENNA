@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="Logo_Skynopy">
+    <file>Logo_Skynopy.png</file>
+  </qresource>
+</RCC>
