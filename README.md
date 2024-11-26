@@ -10,10 +10,10 @@ Getting TLE done + Visibility time done
 
 ## Todo
 
-- [] Azimuth + Elevation
-- [] RA + Dec
+- [ ] Azimuth + Elevation
+- [ ] RA + Dec
 
-- [] GNU  Radio modules : *TO develop*
+- [ ] GNU  Radio modules : *TO develop*
 
 ## Libraries
 
