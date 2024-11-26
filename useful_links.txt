@@ -1,1 +1,2 @@
 Utilisation d’un site d’observation et position (AltAz): https://learn.astropy.org/tutorials/2-Coordinates-Transforms
+https://www.satobs.org/seesat/May-2019/0175.html
