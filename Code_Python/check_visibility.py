@@ -62,6 +62,7 @@ def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
         print(ti.utc_strftime("%Y %b %d %H:%M:%S"), name)  # Print events
         visibility.append(ti) 
     return visibility
+
 #MAIN
 
 #Parameters
@@ -83,4 +84,3 @@ satellite = load_TLE(Satellite_name, Satellite_Norad_id) #Load the TLE data
 antenna_site = define_observation_site(lat, long) #Define the antenna site
 visibility = check_visibility(antenna_site, satellite, min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
 
-print(visibility)
