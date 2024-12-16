@@ -1,4 +1,6 @@
 from skyfield.api import EarthSatellite, Topos, load
+import realtime_position
+
 
 class Reservation:
   def __init__(self, observation_start, observation_end, observed_object, antenna_location):
