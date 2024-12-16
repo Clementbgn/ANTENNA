@@ -42,6 +42,8 @@ def define_observation_site(latitude_site, longitude_site):
 
 def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
     
+    visibility = [] #Create a list of Visibility times in UTC
+
 # Define the min elevation of the sat in the sky to detect a visibility time
 
     min_elevation = minimum_elevation  # degrees
@@ -58,7 +60,8 @@ def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
     for ti, event in zip(t, events):
         name = event_names[event]
         print(ti.utc_strftime("%Y %b %d %H:%M:%S"), name)  # Print events
-
+        visibility.append(ti) 
+    return visibility
 #MAIN
 
 #Parameters
@@ -78,5 +81,6 @@ delta_t = 24 #Delta of the observation in Hour
 download_TLE(Satellite_name, Satellite_Norad_id, 2) #Download the TLE of the sat in Satellite_data
 satellite = load_TLE(Satellite_name, Satellite_Norad_id) #Load the TLE data
 antenna_site = define_observation_site(lat, long) #Define the antenna site
-check_visibility(antenna_site, satellite, min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
+visibility = check_visibility(antenna_site, satellite, min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
 
+print(visibility)
