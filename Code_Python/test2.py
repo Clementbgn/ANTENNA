@@ -2,6 +2,7 @@
 from skyfield.api import EarthSatellite, Topos, load
 from skyfield.iokit import parse_tle_file
 from skyfield.api import wgs84
+import os
 
 import datetime
 # Create a timescale and ask the current time.
@@ -20,16 +21,22 @@ url = (
     "https://celestrak.org/NORAD/elements/gp.php?CATNR=" + norad_id + "&FORMAT=TLE"
 )  # Generate the url with the Sat query
 
-if not load.exists(name) or load.days_old(name) >= max_days:
-    load.download(
-        url, filename=path
-    )  # Download the TLE text file after 2 days under Satellite_data
+os.makedirs("./Satellite_data", exist_ok=True)
+
+# Check if file exists or needs updating
+if not os.path.exists(path) or load.days_old(path) >= max_days:
+    load.download(url, filename=path)  # Direct download to the correct file
 
 # Load the TLE file
-with load.open(path) as f:
-    satellites = list(parse_tle_file(f, ts))
+# Load the TLE file
+if os.path.exists(path):  # Ensure the file exists
+    with open(path, "rb") as f:  # Open in binary mode
+        satellites = list(parse_tle_file(f, ts))  # Pass the binary file directly to parse_tle_file
+else:
+    raise FileNotFoundError(f"TLE file not found: {path}")
 
 print("Loaded", len(satellites), "satellites")
+
 # Load a specific satellite by number
 by_number = {sat.model.satnum: sat for sat in satellites}
 satellite = by_number[int(norad_id)]
