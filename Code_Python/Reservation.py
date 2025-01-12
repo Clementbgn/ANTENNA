@@ -1,5 +1,6 @@
 from skyfield.api import EarthSatellite, Topos, load
-import realtime_position
+import Satellite_Loader
+import Antenna_Site
 
 
 class Reservation:
