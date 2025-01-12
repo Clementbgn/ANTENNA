@@ -76,10 +76,6 @@ def AltAz_at_visibility(visibility,satellite,antenna_site):
                     print("At ", t_obs.utc_strftime("%Y %b %d %H:%M:%S"),"\n")
                     j=1
 
-                
-
-    
-
 #MAIN
 
 min_elevation = 30
