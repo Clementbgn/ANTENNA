@@ -22,9 +22,12 @@ def download_TLE(sat_name, sat_norad_id, download_every_N_days):
     if not does_TLE_exist(sat_name) or load.days_old(name) >= download_every_N_days:
       load.download(url, filename=path)  # Download the TLE text file after 2 days under Satellite_data
 
+
+
+
 def load_TLE(sat_name,sat_norad_id):
    # Load the TLE file
-    name = sat_name + "_TLE.txt"  # custom filename
+    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
     path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
     with load.open(path) as f:
         satellites = list(parse_tle_file(f, ts))
