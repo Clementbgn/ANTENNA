@@ -8,6 +8,13 @@ import numpy as np
 import re
 from datetime import datetime 
 
+########
+"""
+OUTDATED PROGRAMM 
+NEW ONE IS POLAR_PLOT.PY
+"""
+########
+
 def plot_altaz_positions(dates, altitudes, azimuths):
     """
     Plot satellite positions based on altitude and azimuth.
