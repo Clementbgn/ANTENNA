@@ -2,10 +2,11 @@ from skyfield.api import EarthSatellite, Topos, load
 import Satellite_Loader
 import Antenna_Site
 
+ts = load.timescale()
 
 class Reservation:
-  def __init__(self, observation_start, observation_end, observed_object, antenna_location):
-    ts = load.timescale()
+  def __init__(self, timescale, observation_start, observation_end, observed_object, antenna_location):
+    self.ts = timescale
     self.booking_date= ts.now()
     self.observation_start= observation_start #Start Date
     self.observation_end= observation_end #End date
@@ -15,7 +16,7 @@ class Reservation:
   def isToObserve(self):
     #Compare Now and observation start
     t = self.ts.now()
-    if self.observation_start <= t and t <= self.observation_end:
+    if self.observation_start.utc_datetime() <= t.utc_datetime() <= self.observation_end.utc_datetime():
       return True
     else:
       return False
