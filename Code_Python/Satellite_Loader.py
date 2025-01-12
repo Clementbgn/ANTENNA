@@ -21,8 +21,6 @@ def download_TLE(sat_name, sat_norad_id, download_every_N_days):
       load.download(url, filename=path)  # Download the TLE text file after 2 days under Satellite_data
 
 
-
-
 def load_TLE(sat_name,sat_norad_id):
    # Load the TLE file
     current_dir = os.path.dirname(os.path.abspath(__file__))
