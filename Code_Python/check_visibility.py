@@ -4,7 +4,7 @@ from skyfield.iokit import parse_tle_file
 from skyfield.api import wgs84
 import datetime
 import os
-import Satellite_Loader
+import Satellite_list
 import Antenna_Site
 import position # Import position to calculate the position at t_obs of a sat
 import math
@@ -32,7 +32,7 @@ def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
         visibility.append(ti) 
     return visibility
 
-def AltAz_at_visibility(visibility):
+def AltAz_at_visibility(visibility,satellite,antenna_site):
 
     number_of_contacts = str(len(visibility)/3)
 
@@ -43,7 +43,7 @@ def AltAz_at_visibility(visibility):
         for i in range(1, int(len(visibility))+1, 1):
             print("Encounter ",math.ceil(i/3))
             t_obs = visibility[i-1]
-            alt_sat, az_sat, distance_sat = position.get_relative_position_antenna_satellite_AltAz(t_obs)
+            alt_sat, az_sat, distance_sat = position.get_relative_position_antenna_satellite_AltAz(t_obs,satellite,antenna_site)
 
             match j:
                 case 1:
@@ -87,8 +87,8 @@ ts = load.timescale()
 t0 = ts.now() # First time is now
 delta_t = 24 #Delta of the observation in Hour
 
-visibility = check_visibility(Antenna_Site.antenna_site, Satellite_Loader.satellite, min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
+visibility = check_visibility(Antenna_Site.antenna_site, Satellite_list.Satellites[0], min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
 
-AltAz_at_visibility(visibility)
+AltAz_at_visibility(visibility,Satellite_list.Satellites[0],Antenna_Site.antenna_site)
 
 

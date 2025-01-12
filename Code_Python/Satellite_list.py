@@ -27,5 +27,3 @@ for sat in Sats:
 
 
 
-
-
