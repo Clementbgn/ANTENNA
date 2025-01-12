@@ -5,9 +5,11 @@ from skyfield.api import wgs84
 import datetime
 import os
 
+ts=load.timescale()
+
 def download_TLE(sat_name, sat_norad_id, download_every_N_days):
 
-    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
+    name = sat_name + "_TLE.txt"  # custom filename
 
     path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
 
@@ -17,14 +19,16 @@ def download_TLE(sat_name, sat_norad_id, download_every_N_days):
 
     url = ("https://celestrak.org/NORAD/elements/gp.php?CATNR=" + sat_norad_id + "&FORMAT=TLE")  # Generate the url with the Sat query
 
-    if not load.exists(name) or load.days_old(name) >= download_every_N_days:
+    if not does_TLE_exist(sat_name) or load.days_old(name) >= download_every_N_days:
       load.download(url, filename=path)  # Download the TLE text file after 2 days under Satellite_data
+
+
 
 
 def load_TLE(sat_name,sat_norad_id):
    # Load the TLE file
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(current_dir, 'Satellite_data', sat_name + "_TLE.txt")
+    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
+    path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
     with load.open(path) as f:
         satellites = list(parse_tle_file(f, ts))
         print("Loaded", len(satellites), "satellites")
@@ -34,11 +38,10 @@ def load_TLE(sat_name,sat_norad_id):
 
     return satellite
 
-#Parameters
-Satellite_name = "EIRSAT1" 
-Satellite_Norad_id = "58472"
-
-# Satellite Loading
-ts = load.timescale()
-#download_TLE(Satellite_name, Satellite_Norad_id, 2.0) #Download the TLE of the sat in Satellite_data
-satellite = load_TLE(Satellite_name, Satellite_Norad_id) #Load the TLE data
+def does_TLE_exist(sat_name):
+    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
+    path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
+    if (os.path.isfile(path) == True):
+        return True
+    else:
+        return False

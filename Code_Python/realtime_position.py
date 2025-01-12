@@ -4,13 +4,15 @@ from skyfield.api import EarthSatellite, Topos, load
 from skyfield.api import wgs84
 import datetime
 import time
-import Satellite_Loader
+import Satellite_list
 import Antenna_Site
 import keyboard
 
-satellite = Satellite_Loader.satellite
+sat_index = 0 #sat index in Satellite_list.Sats
+
+satellite = Satellite_list.Satellites[sat_index]
 antenna_site = Antenna_Site.antenna_site
-Satellite_name = Satellite_Loader.Satellite_name
+Satellite_name = Satellite_list.Sats[sat_index]
 ts = load.timescale()
 
 def get_geocentric_position():
