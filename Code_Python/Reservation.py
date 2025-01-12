@@ -1,6 +1,8 @@
 from skyfield.api import EarthSatellite, Topos, load
 import Satellite_Loader
 import Antenna_Site
+import realtime_position
+import time
 
 ts = load.timescale()
 
@@ -20,7 +22,7 @@ class Reservation:
       return True
     else:
       return False
-
+    
   def observe(self):
     if self.isToObserve() == True:
       print('Observable')
@@ -29,3 +31,9 @@ class Reservation:
       print('Non observable')
 
     #if is observable: get Azimuth/elev of the sat
+
+  def virtual_observation(self):
+    while True:
+      realtime_position.print_relative_position_antenna_satellite_AltAz()
+      time.sleep(1)
+      
