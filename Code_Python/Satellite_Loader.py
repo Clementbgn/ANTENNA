@@ -9,7 +9,7 @@ ts=load.timescale()
 
 def download_TLE(sat_name, sat_norad_id, download_every_N_days):
 
-    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
+    name = sat_name + "_TLE.txt"  # custom filename
 
     path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
 
@@ -24,7 +24,7 @@ def download_TLE(sat_name, sat_norad_id, download_every_N_days):
 
 def load_TLE(sat_name,sat_norad_id):
    # Load the TLE file
-    name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
+    name = sat_name + "_TLE.txt"  # custom filename
     path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
     with load.open(path) as f:
         satellites = list(parse_tle_file(f, ts))
