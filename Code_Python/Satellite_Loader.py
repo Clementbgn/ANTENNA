@@ -20,6 +20,9 @@ def download_TLE(sat_name, sat_norad_id, download_every_N_days):
     if not load.exists(name) or load.days_old(name) >= download_every_N_days:
       load.download(url, filename=path)  # Download the TLE text file after 2 days under Satellite_data
 
+
+
+
 def load_TLE(sat_name,sat_norad_id):
    # Load the TLE file
     name = sat_name + "_TLE.txt"  # custom filename, not 'gp.php'
@@ -39,5 +42,5 @@ Satellite_Norad_id = "58472"
 
 # Satellite Loading
 ts = load.timescale()
-download_TLE(Satellite_name, Satellite_Norad_id, 2) #Download the TLE of the sat in Satellite_data
+#download_TLE(Satellite_name, Satellite_Norad_id, 2.0) #Download the TLE of the sat in Satellite_data
 satellite = load_TLE(Satellite_name, Satellite_Norad_id) #Load the TLE data

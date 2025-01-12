@@ -6,7 +6,8 @@ import datetime
 import os
 import Satellite_Loader
 import Antenna_Site
-import position # Import position to calculate the 
+import position # Import position to calculate the position at t_obs of a sat
+import math
 
 def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
     
@@ -32,7 +33,51 @@ def check_visibility(antenna_site, satellite, minimum_elevation, t0, delta_t):
     return visibility
 
 def AltAz_at_visibility(visibility):
-    alt_sat, az_sat, distance_sat = position.get_relative_position_antenna_satellite_AltAz()
+
+    number_of_contacts = str(len(visibility)/3)
+
+    print("\nWe will encounter " + number_of_contacts + " visiblity periods")
+
+    if (number_of_contacts > str(1)):
+        j = 1 # Used to determine if it is a rise a culmination or a set
+        for i in range(1, int(len(visibility))+1, 1):
+            print("Encounter ",math.ceil(i/3))
+            t_obs = visibility[i-1]
+            alt_sat, az_sat, distance_sat = position.get_relative_position_antenna_satellite_AltAz(t_obs)
+
+            match j:
+                case 1:
+
+                    print("\nRise position: \n" 
+                        + "Elevation: ", alt_sat.degrees, " degrees \n"
+                        + "Azimuth: ", az_sat.degrees, " degrees \n"
+                        + "Distance: ",distance_sat.km ," degrees")
+                    print("At ", t_obs.utc_strftime("%Y %b %d %H:%M:%S"),"\n")
+                    j=j+1
+
+                
+
+                case 2:
+
+                    print("\nCulmination point position: \n" 
+                        + "Elevation: ", alt_sat.degrees, " degrees \n"
+                        + "Azimuth: ", az_sat.degrees, " degrees \n"
+                        + "Distance: ",distance_sat.km ," degrees")
+                    print("At ", t_obs.utc_strftime("%Y %b %d %H:%M:%S"),"\n")
+                    j=j+1
+
+                
+                case 3:
+
+                    print("\nSet point position: \n" 
+                        + "Elevation: ", alt_sat.degrees, " degrees \n"
+                        + "Azimuth: ", az_sat.degrees, " degrees \n"
+                        + "Distance: ",distance_sat.km ," degrees")
+                    print("At ", t_obs.utc_strftime("%Y %b %d %H:%M:%S"),"\n")
+                    j=1
+
+                
+
     
 
 #MAIN
@@ -44,5 +89,6 @@ delta_t = 24 #Delta of the observation in Hour
 
 visibility = check_visibility(Antenna_Site.antenna_site, Satellite_Loader.satellite, min_elevation, t0, delta_t) #Check visibility of the Satellite from the antenna site
 
-print(visibility)
+AltAz_at_visibility(visibility)
+
 
