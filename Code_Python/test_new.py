@@ -3,18 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import timedelta
 
-# Charger les données TLE
+# Import TLE Coordinates
 tle_line1 = "1 25544U 98067A   23012.21574889  .00016717  00000-0  10270-3 0  9007"
 tle_line2 = "2 25544  51.6434 296.1377 0005793  45.6760 314.4768 15.49912376389561"
 satellite = EarthSatellite(tle_line1, tle_line2, "ISS (Zarya)", load.timescale())
 
-# Station sol
-station_lat = 48.8566  # Latitude de Paris
-station_lon = 2.3522   # Longitude de Paris
-station_alt = 0.035    # Altitude en km
+# Ground Station location (here it's Paris coordinates)
+station_lat = 48.8566  
+station_lon = 2.3522   
+station_alt = 0.035    
 station = wgs84.latlon(station_lat, station_lon, station_alt)
 
-# Temps d'observation
+# Observation time (User choice)
 observation_year = 2025
 observation_month = 1
 observation_day = 12
@@ -24,7 +24,7 @@ observation_minute = 30
 ts = load.timescale()
 observation_time = ts.utc(observation_year, observation_month, observation_day, observation_hour, observation_minute)
 
-# Vérification de la visibilité
+# Is the satellite visible from the ground station ?
 def is_visible(satellite, station, time):
     difference = satellite - station
     topocentric = difference.at(time)
@@ -33,9 +33,9 @@ def is_visible(satellite, station, time):
 
 visible, az, el = is_visible(satellite, station, observation_time)
 
-# Trouver la dernière et la prochaine période
+# Find next and previous visibility periods
 def find_visibility_periods(satellite, station, observation_time, search_duration_minutes=720):
-    step_minutes = 1  # Pas d'une minute
+    step_minutes = 1  # step time (minute)
     duration = range(-search_duration_minutes, search_duration_minutes, step_minutes)
 
     last_period = None
@@ -61,7 +61,7 @@ def find_visibility_periods(satellite, station, observation_time, search_duratio
 
 last_period, next_period = find_visibility_periods(satellite, station, observation_time)
 
-# Affichage des résultats
+# Results
 if visible:
     print(f"À {observation_time.utc_iso()}, le satellite est visible.")
     print(f"Position : Azimut = {az:.2f}°, Élévation = {el:.2f}°")
@@ -72,18 +72,18 @@ else:
     if next_period:
         print(f"Prochaine période visible : {next_period[0].utc_iso()} à {next_period[1].utc_iso()}")
 
-# Affichage graphique polaire
+# Plot results
 fig, ax = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(8, 8))
-ax.set_theta_zero_location('N')  # Le nord en haut
-ax.set_theta_direction(-1)  # Sens horaire pour l'azimut
-ax.set_rlim(90, 0)  # 90° à l'extérieur (horizon), 0° au centre (zénith)
+ax.set_theta_zero_location('N')  
+ax.set_theta_direction(-1)  # Azimut clockwise 
+ax.set_rlim(90, 0)  # 90° (horizon), 0° (zenith)
 
 # Tracé des périodes adjacentes
 for period, label in [(last_period, "Dernière période"), (next_period, "Prochaine période")]:
     if period:
         period_start = period[0].utc_datetime()
         period_end = period[1].utc_datetime()
-        interval_seconds = 60  # Intervalle de 60 secondes
+        interval_seconds = 60  # Time interval of 60 seconds
 
         period_times = []
         current_time = period_start
@@ -101,7 +101,7 @@ for period, label in [(last_period, "Dernière période"), (next_period, "Procha
 
         ax.plot(period_azimuths, period_elevations, label=label)
 
-# Position actuelle
+# Actual position
 if visible:
     ax.scatter(np.radians(az), el, color='red', label="Position actuelle", zorder=5)
 
