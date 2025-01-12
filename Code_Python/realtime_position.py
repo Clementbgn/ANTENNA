@@ -6,7 +6,7 @@ import datetime
 import time
 import Satellite_list
 import Antenna_Site
-import keyboard
+
 
 sat_index = 0 #sat index in Satellite_list.Sats
 
