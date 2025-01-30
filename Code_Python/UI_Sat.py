@@ -9,43 +9,56 @@ from tkinter import ttk
 
 # Load available satellites
 SATELLITES = {
-    "ISS (Zarya)": ("1 25544U 98067A   23012.21574889  .00016717  00000-0  10270-3 0  9007",
-                     "2 25544  51.6434 296.1377 0005793  45.6760 314.4768 15.49912376389561"),
-    "Hubble Space Telescope": ("1 20580U 90037B   23012.21574889  .00000273  00000-0  12345-3 0  9003",
-                                "2 20580  28.4697 340.5367 0002781  98.5393 261.6123 14.34567890123456"),
-    "NOAA 19": ("1 33591U 09005A   23012.21574889  .00000122  00000-0  23456-3 0  9005",
-                "2 33591  99.2003 190.5367 0012781  45.6789 314.5123 14.12567890123456")
+    "ISS (Zarya)": ["25544", "51.6434", "296.1377", "15.4991", "402.68 MHz"],
+    "Hubble Space Telescope": ["20580", "28.4697", "340.5367", "14.3456", "436.785 MHz"],
+    "NOAA 19": ["33591", "99.2003", "190.5367", "14.1256", "465.987 MHz"]
 }
 
-
-# Function to display available satellites
-def search_satellites(*args):
-    search_term = search_var.get().lower()
-    filtered_satellites = [sat for sat in SATELLITES.keys() if search_term in sat.lower()]
-    satellite_list.delete(0, tk.END)
-    for sat in filtered_satellites:
-        satellite_list.insert(tk.END, sat)
-
-def on_satellite_selected(event):
-    selected_sat = satellite_list.get(satellite_list.curselection())
-    print(f"Selected satellite: {selected_sat}")  # Placeholder for future functionality
+ts = load.timescale()
 
 # Create main UI window
 root = tk.Tk()
 root.title("Satellite Tracker")
+root.geometry("800x600")
 
+# Title Label
+title_label = tk.Label(root, text="ESTACA SATELLITE TRACKER", font=("Arial", 20, "bold"))
+title_label.pack(pady=10)
+
+# Search Bar
 search_var = tk.StringVar()
+search_entry = ttk.Entry(root, textvariable=search_var, width=50)
+search_entry.pack(pady=5)
+
+def search_satellites(*args):
+    search_term = search_var.get().lower()
+    for item in satellite_tree.get_children():
+        satellite_tree.delete(item)
+    for sat, details in SATELLITES.items():
+        if search_term in sat.lower():
+            satellite_tree.insert("", "end", values=[sat] + details)
+
 search_var.trace("w", search_satellites)
 
-search_entry = ttk.Entry(root, textvariable=search_var)
-search_entry.pack()
+# Table for satellite information
+columns = ("Name", "ID", "Inclination", "RAAN", "Mean Motion", "Frequency")
+satellite_tree = ttk.Treeview(root, columns=columns, show="headings")
 
-satellite_list = tk.Listbox(root)
-satellite_list.pack()
+for col in columns:
+    satellite_tree.heading(col, text=col)
+    satellite_tree.column(col, width=120)
 
-for sat in SATELLITES.keys():
-    satellite_list.insert(tk.END, sat)
+for sat, details in SATELLITES.items():
+    satellite_tree.insert("", "end", values=[sat] + details)
 
-satellite_list.bind("<<ListboxSelect>>", on_satellite_selected)
+satellite_tree.pack(pady=10, fill=tk.BOTH, expand=True)
+
+def on_satellite_selected(event):
+    selected_item = satellite_tree.selection()
+    if selected_item:
+        sat_name = satellite_tree.item(selected_item, "values")[0]
+        print(f"Selected satellite: {sat_name}")  # Placeholder for future functionality
+
+satellite_tree.bind("<<TreeviewSelect>>", on_satellite_selected)
 
 root.mainloop()
