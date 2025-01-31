@@ -45,3 +45,5 @@ def does_TLE_exist(sat_name):
         return True
     else:
         return False
+    
+    #AJOUTER POSSIBILITE DE LOAD UN TLE CUSTOM
