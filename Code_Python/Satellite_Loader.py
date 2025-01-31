@@ -47,3 +47,16 @@ def does_TLE_exist(sat_name):
         return False
     
     #AJOUTER POSSIBILITE DE LOAD UN TLE CUSTOM
+
+def load_external_TLE(filename_with_extension):
+
+    name = filename_with_extension   # custom filename
+    path = "Code_Python/Satellite_data/" + name  # Path to load the TLE file
+
+    with load.open(path) as f:
+        satellites = list(parse_tle_file(f, ts))
+        print("Loaded", len(satellites), "satellites")
+    # Load a specific satellite by number
+    #by_number = {sat.model.satnum: sat for sat in satellites}
+    satellite = satellites[0]
+    #satellite = by_number[int(sat_norad_id)]
