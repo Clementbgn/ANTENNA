@@ -9,9 +9,9 @@ from tkinter import ttk
 
 # Load available satellites
 SATELLITES = {
-    "ISS (Zarya)": ["25544", "51.6434", "296.1377", "15.4991", "402.68 MHz"],
-    "Hubble Space Telescope": ["20580", "28.4697", "340.5367", "14.3456", "436.785 MHz"],
-    "NOAA 19": ["33591", "99.2003", "190.5367", "14.1256", "465.987 MHz"]
+    "ISS (Zarya)": ["1", "1", "1", "1", "1"],
+    "Hubble Space Telescope": ["1", "1", "1", "1", "1"],
+    "NOAA 19": ["1", "1", "1", "1", "1"]
 }
 
 ts = load.timescale()
@@ -41,7 +41,7 @@ def search_satellites(*args):
 search_var.trace("w", search_satellites)
 
 # Table for satellite information
-columns = ("Name", "ID", "Inclination", "RAAN", "Mean Motion", "Frequency")
+columns = ("Name", "ID", "Frequency", "Next timeframe", "Visibility", "Ground Station")
 satellite_tree = ttk.Treeview(root, columns=columns, show="headings")
 
 for col in columns:
@@ -57,7 +57,7 @@ def on_satellite_selected(event):
     selected_item = satellite_tree.selection()
     if selected_item:
         sat_name = satellite_tree.item(selected_item, "values")[0]
-        print(f"Selected satellite: {sat_name}")  # Placeholder for future functionality
+        print(f"Selected satellite: {sat_name}") 
 
 satellite_tree.bind("<<TreeviewSelect>>", on_satellite_selected)
 
