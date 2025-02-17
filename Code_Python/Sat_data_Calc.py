@@ -122,12 +122,12 @@ for sat in TLE_list:
         az_set_list.append(azimuth)
         el_set_list.append(elevation)
     
-#print(az_list)
-#print(el_list)
+print(az_list)
+print(el_list)
 print(az_rise_list)
-#print(el_rise_list)
-#print(az_set_list)
-#print(el_set_list)
+print(el_rise_list)
+print(az_set_list)
+print(el_set_list)
 
 SATELLITES_INFO = []
 
@@ -164,10 +164,10 @@ for i, sat in enumerate(TLE_list):
         ground_station   # Associated ground station
     ])
 
-'''# Verify the generated data
+# Verify the generated data
 for sat_info in SATELLITES_INFO:
     print(sat_info)
-'''
+
 
 
 
