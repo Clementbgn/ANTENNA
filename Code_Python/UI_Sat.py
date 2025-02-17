@@ -8,6 +8,8 @@ import tkinter as tk
 from tkinter import ttk
 from Sat_data_Calc import SATELLITES_INFO, lat_dms,long_dms, az_rise_list,el_rise_list,az_set_list,el_set_list,visible_list, TLE_list, antenna_site
 import Polar_plot 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg  
+
 
 # Load available satellites
 
@@ -87,13 +89,14 @@ def on_satellite_selected(event):
         # Extract rise and set times from timeframe
         rise_time, set_time = timeframe.split(" - ") if " - " in timeframe else ("Unknown", "Unknown")
 
-                # Get the list of all items in the treeview (satellite names)
+        # Get the list of all items in the treeview (satellite names)
         all_items = satellite_tree.get_children()
 
         # Find the index of the selected item in the list
         selected_index = all_items.index(selected_item[0])   
 
         location = f"{lat_dms} - {long_dms}"  # Location of the ground station
+        station_name = "ESTACA GROUND STATION"  # Name of the ground station
 
         # Rise, Set azimuth & elevation of the selected satellite
         rise_azimuth = az_rise_list[selected_index]
@@ -102,12 +105,13 @@ def on_satellite_selected(event):
         set_elevation = el_set_list[selected_index]
 
         visibility = "Visible" if visible_list[selected_index] else "Not Visible"
-        # Create a new window
+        
+        # Create a new window for satellite details
         details_window = tk.Toplevel(root)
         details_window.title(f"Satellite Details - {satellite_name}")
-        details_window.geometry("400x300")
+        details_window.geometry("600x400")  # Adjust the size as needed
 
-                # Header: Satellite Name and NORAD ID (centered and large font)
+        # Header: Satellite Name and NORAD ID (centered and large font)
         header_frame = tk.Frame(details_window)
         header_frame.pack(pady=10, fill="x")
 
@@ -116,12 +120,13 @@ def on_satellite_selected(event):
 
         # Create a frame for the polar plot and information
         main_frame = tk.Frame(details_window)
-        main_frame.pack(fill="both", expand=True, padx=20)
+        main_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
-        # Left side: Polar plot (empty for now)
+        # Left side: Polar plot
         plot_frame = tk.Frame(main_frame, width=300, height=300)
-        plot_frame.grid(row=0, column=0, padx=20, pady=20)
-        
+        plot_frame.grid(row=0, column=0, padx=20, pady=20)  # Using grid here
+
+        # Create the Polar plot
         now = datetime.utcnow()
         observation_year = now.year
         observation_month = now.month
@@ -132,8 +137,8 @@ def on_satellite_selected(event):
         observation_time_Polar_plot = ts.utc(observation_year, observation_month, observation_day, observation_hour, observation_minute)
         
         fig = Polar_plot.Polar_plot(TLE_list[selected_index], antenna_site, observation_time_Polar_plot) 
-        canvas = FigureCanvas(fig)
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        canvas = FigureCanvasTkAgg(fig, plot_frame)  # Connect Polar plot to Tkinter
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)  # Place the plot inside the plot_frame
 
         # Right side: Satellite details
         details_frame = tk.Frame(main_frame)
@@ -143,7 +148,7 @@ def on_satellite_selected(event):
         details = {
             "SATELLITE NAME": satellite_name,
             "NoRad ID": norad_id,
-            "Station Name": satellite_name,
+            "Station Name": station_name,
             "Location": location,
             "Ground Station Owner": ground_station_owner,
             "Rise Azimuth": rise_azimuth,
@@ -155,7 +160,8 @@ def on_satellite_selected(event):
             "Frequency": frequency,
             "Visibility status": visibility
         }
-         # Display each detail in the right frame
+
+        # Display each detail in the right frame
         for label, value in details.items():
             tk.Label(details_frame, text=f"{label}: {value}", font=("Arial", 12)).pack(pady=5)
 
@@ -165,7 +171,8 @@ def on_satellite_selected(event):
 
         visibility_label = tk.Label(visibility_frame, text=f"Visibility: {visibility}", font=("Arial", 14, "bold"))
         visibility_label.pack(side="top", anchor="center")
-        # Display each detail in the new window
+
+
 
 def close_details_window():
     # Ferme les autres fenêtres détaillées ouvertes
