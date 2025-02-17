@@ -15,8 +15,8 @@ satellite = Sat_data_Calc.TLE_list[0]
 observation_year = 2025
 observation_month = 1
 observation_day = 12
-observation_hour = 17
-observation_minute = 52
+observation_hour = 19
+observation_minute = 23
 
 
 # Load timescale and define the observation time
