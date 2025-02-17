@@ -1,7 +1,8 @@
 from skyfield.api import load, EarthSatellite, wgs84
-from Antenna_Site import antenna_site
+from Antenna_Site import antenna_site, lat,long
 from visibility_periods import is_visible, find_visibility_periods
 import os
+from datetime import timedelta
 from datetime import datetime
 import json
 
@@ -33,6 +34,21 @@ observation_minute = now.minute
 
 observation_time = ts.utc(observation_year, observation_month, observation_day, observation_hour, observation_minute)
 
+def decimal_to_dms(deg, is_latitude=True):
+    """Convert decimal coordinates to degrees, minutes, and seconds (DMS) format."""
+    direction = "N" if is_latitude and deg >= 0 else "S" if is_latitude else "E" if deg >= 0 else "W"
+    deg = abs(deg)
+    d = int(deg)
+    m = int((deg - d) * 60)
+    s = round((deg - d - m / 60) * 3600, 2)
+    return f"{d}°{m}'{s}\" {direction}"
+
+# Convert and display
+lat_dms = decimal_to_dms(lat, is_latitude=True)
+long_dms = decimal_to_dms(long, is_latitude=False)
+
+
+
 # Iterate through the files in the directory
 for file in os.listdir(directory):
     if file.endswith("_TLE.txt"):  # Check if it is a text file
@@ -56,8 +72,12 @@ for file in os.listdir(directory):
 
 
 visible_list = []
-az_list = []
-el_list = []
+az_rise_list = []
+el_rise_list = []
+az_set_list = []
+el_set_list = []
+az_list=[]
+el_list=[]
 last_period_list = []
 current_period_list = []
 next_period_list = []
@@ -72,7 +92,42 @@ for sat in TLE_list:
     last_period_list.append(last_period)
     current_period_list.append(current_period)
     next_period_list.append(next_period)
+    
+    # Choisir la période actuelle ou la prochaine si elle n'existe pas
+    if current_period:
+        period_start = current_period[0].utc_datetime()  # Début de la période actuelle
+        period_end = current_period[1].utc_datetime()    # Fin de la période actuelle
+    elif next_period:
+        period_start = next_period[0].utc_datetime()  # Début de la prochaine période
+        period_end = next_period[1].utc_datetime()    # Fin de la prochaine période
+    else:
+        period_start = period_end = None  # Pas de période valide
 
+    # Si la période est valide, obtenir l'azimuth et l'élévation
+    if period_start and period_end:
+        # Convertir l'heure de début de la période en objet Time (ts.utc)
+        t = ts.utc(period_start.year, period_start.month, period_start.day,
+                   period_start.hour, period_start.minute, period_start.second)
+        
+        # Récupérer l'azimuth et l'élévation pour ce moment
+        _, azimuth, elevation = is_visible(sat, antenna_site, t)
+        az_rise_list.append(azimuth)
+        el_rise_list.append(elevation)
+        # Convertir l'heure de début de la période en objet Time (ts.utc)
+        t = ts.utc(period_end.year, period_end.month, period_end.day,
+                   period_end.hour, period_end.minute, period_end.second)
+        
+        # Récupérer l'azimuth et l'élévation pour ce moment
+        _, azimuth, elevation = is_visible(sat, antenna_site, t)
+        az_set_list.append(azimuth)
+        el_set_list.append(elevation)
+    
+#print(az_list)
+#print(el_list)
+print(az_rise_list)
+#print(el_rise_list)
+#print(az_set_list)
+#print(el_set_list)
 
 SATELLITES_INFO = []
 
@@ -109,7 +164,11 @@ for i, sat in enumerate(TLE_list):
         ground_station   # Associated ground station
     ])
 
-# Verify the generated data
+'''# Verify the generated data
 for sat_info in SATELLITES_INFO:
     print(sat_info)
+'''
+
+
+
 
