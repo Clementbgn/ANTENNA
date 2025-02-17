@@ -3,15 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import timedelta
 from Antenna_Site import antenna_site
-from check_visibility_date import is_visible, find_visibility_periods
+from visibility_periods import is_visible, find_visibility_periods
 
 # Import TLE Coordinates (Two-Line Element set for the satellite)
 
-# These are used to calculate the satellite's position in orbit
+"""# These are used to calculate the satellite's position in orbit
 tle_line1 = "1 25544U 98067A   23012.21574889  .00016717  00000-0  10270-3 0  9007"
 tle_line2 = "2 25544  51.6434 296.1377 0005793  45.6760 314.4768 15.49912376389561"
 satellite = EarthSatellite(tle_line1, tle_line2, "ISS (Zarya)", load.timescale())
-
+"""
 # Observation time set by the user (UTC time)
 observation_year = 2025
 observation_month = 1
@@ -25,6 +25,7 @@ observation_time = ts.utc(observation_year, observation_month, observation_day, 
 
 # Check if the satellite is visible at the observation time
 visible, az, el = is_visible(satellite, antenna_site, observation_time)
+print(visible)
 
 
 # Find visibility periods
