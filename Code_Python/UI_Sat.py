@@ -1,12 +1,12 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from datetime import timedelta
+from datetime import datetime
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from skyfield.api import load, EarthSatellite, wgs84
 import tkinter as tk
 from tkinter import ttk
-from Sat_data_Calc import SATELLITES_INFO, lat_dms,long_dms, az_rise_list,el_rise_list,az_set_list,el_set_list
+from Sat_data_Calc import SATELLITES_INFO, lat_dms,long_dms, az_rise_list,el_rise_list,az_set_list,el_set_list,visible_list, TLE_list, antenna_site
 import Polar_plot 
 
 # Load available satellites
@@ -101,10 +101,43 @@ def on_satellite_selected(event):
         set_azimuth = az_set_list[selected_index]
         set_elevation = el_set_list[selected_index]
 
+        visibility = "Visible" if visible_list[selected_index] else "Not Visible"
         # Create a new window
         details_window = tk.Toplevel(root)
         details_window.title(f"Satellite Details - {satellite_name}")
         details_window.geometry("400x300")
+
+                # Header: Satellite Name and NORAD ID (centered and large font)
+        header_frame = tk.Frame(details_window)
+        header_frame.pack(pady=10, fill="x")
+
+        satellite_header = tk.Label(header_frame, text=f"{satellite_name} - {norad_id}", font=("Arial", 18, "bold"))
+        satellite_header.pack(side="top", anchor="center")
+
+        # Create a frame for the polar plot and information
+        main_frame = tk.Frame(details_window)
+        main_frame.pack(fill="both", expand=True, padx=20)
+
+        # Left side: Polar plot (empty for now)
+        plot_frame = tk.Frame(main_frame, width=300, height=300)
+        plot_frame.grid(row=0, column=0, padx=20, pady=20)
+        
+        now = datetime.utcnow()
+        observation_year = now.year
+        observation_month = now.month
+        observation_day = now.day
+        observation_hour = now.hour
+        observation_minute = now.minute
+
+        observation_time_Polar_plot = ts.utc(observation_year, observation_month, observation_day, observation_hour, observation_minute)
+        
+        fig = Polar_plot.Polar_plot(TLE_list[selected_index], antenna_site, observation_time_Polar_plot) 
+        canvas = FigureCanvas(fig)
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+        # Right side: Satellite details
+        details_frame = tk.Frame(main_frame)
+        details_frame.grid(row=0, column=1, padx=20, pady=20)
 
         # Data dictionary to display
         details = {
@@ -119,14 +152,37 @@ def on_satellite_selected(event):
             "Set Elevation": set_elevation,
             "Rise Time": rise_time,
             "Set Time": set_time,
-            "Frequency": frequency
+            "Frequency": frequency,
+            "Visibility status": visibility
         }
+         # Display each detail in the right frame
+        for label, value in details.items():
+            tk.Label(details_frame, text=f"{label}: {value}", font=("Arial", 12)).pack(pady=5)
 
+        # Bottom: Visibility status centered
+        visibility_frame = tk.Frame(details_window)
+        visibility_frame.pack(side="bottom", pady=10, fill="x")
+
+        visibility_label = tk.Label(visibility_frame, text=f"Visibility: {visibility}", font=("Arial", 14, "bold"))
+        visibility_label.pack(side="top", anchor="center")
         # Display each detail in the new window
-        for i, (label, value) in enumerate(details.items()):
-            tk.Label(details_window, text=f"{label}: {value}", font=("Arial", 12)).pack(pady=5)
+
+def close_details_window():
+    # Ferme les autres fenêtres détaillées ouvertes
+    for window in details_windows:
+        window.destroy()
+
+# Gestionnaire pour fermer la fenêtre principale et arrêter le programme
+def on_close():
+    close_details_window()  # Ferme les fenêtres détaillées
+    root.quit()  # Quitte l'application principale Tkinter
+
+# Assurer la fermeture de la fenêtre principale et des fenêtres secondaires
+root.protocol("WM_DELETE_WINDOW", on_close)
 
 # Bind the function to the selection event
 satellite_tree.bind("<<TreeviewSelect>>", on_satellite_selected)
+
+details_windows = []
 
 root.mainloop()
