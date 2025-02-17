@@ -3,9 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import timedelta
 from visibility_periods import is_visible, find_visibility_periods
+import Sat_data_Calc
+from Antenna_Site import antenna_site
 
-
-'''# Import TLE Coordinates (Two-Line Element set for the satellite)
+# Import TLE Coordinates (Two-Line Element set for the satellite)
 # for example here
 
 satellite = Sat_data_Calc.TLE_list[0]
@@ -14,23 +15,23 @@ satellite = Sat_data_Calc.TLE_list[0]
 observation_year = 2025
 observation_month = 1
 observation_day = 12
-observation_hour = 14
-observation_minute = 5
+observation_hour = 17
+observation_minute = 52
+
 
 # Load timescale and define the observation time
 ts = load.timescale()
-observation_time = ts.utc(observation_year, observation_month, observation_day, observation_hour, observation_minute)
-'''
+observation_time = ts.utc(observation_year,observation_month,observation_day,observation_hour,observation_minute)
+
+
 
 def Polar_plot (satellite, antenna_site, observation_time) :
     # Check if the satellite is visible at the observation time
     visible, az, el = is_visible(satellite, antenna_site, observation_time)
-    print(visible)
-
-
+     
     # Find visibility periods
     last_period, current_period, next_period = find_visibility_periods(satellite, antenna_site, observation_time)
-
+        
     # Display results
     if visible:
         print(f"At {observation_time.utc_iso()}, the satellite is visible.")
@@ -86,3 +87,4 @@ def Polar_plot (satellite, antenna_site, observation_time) :
     ax.legend(loc='lower left')
     plt.show()
 
+#Polar_plot(satellite, antenna_site, observation_time)
