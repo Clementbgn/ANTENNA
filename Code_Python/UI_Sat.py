@@ -6,14 +6,26 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from skyfield.api import load, EarthSatellite, wgs84
 import tkinter as tk
 from tkinter import ttk
+from Sat_data_Calc import SATELLITES_INFO
 
 # Load available satellites
-SATELLITES = {
+
+'''SATELLITES_INFO = {
     "ISS (Zarya)": ["1", "1", "1", "1", "1"],
     "Hubble Space Telescope": ["1", "1", "1", "1", "1"],
     "NOAA 19": ["1", "1", "1", "1", "1"]
-}
+}'''
 
+
+
+
+
+
+
+'''
+CREATION OF THE UI FOR SATELLITES SELECTION 
+
+'''
 ts = load.timescale()
 
 # Create main UI window
@@ -34,7 +46,7 @@ def search_satellites(*args):
     search_term = search_var.get().lower()
     for item in satellite_tree.get_children():
         satellite_tree.delete(item)
-    for sat, details in SATELLITES.items():
+    for sat, details in SATELLITES_INFO.items():
         if search_term in sat.lower():
             satellite_tree.insert("", "end", values=[sat] + details)
 
@@ -48,8 +60,8 @@ for col in columns:
     satellite_tree.heading(col, text=col)
     satellite_tree.column(col, width=120)
 
-for sat, details in SATELLITES.items():
-    satellite_tree.insert("", "end", values=[sat] + details)
+for sat_info in SATELLITES_INFO:
+    satellite_tree.insert("", "end", values=sat_info)
 
 satellite_tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
