@@ -85,6 +85,8 @@ def Polar_plot (satellite, antenna_site, observation_time) :
     # Add title and legend
     ax.set_title("Satellite trajectory seen from the ground station", va='bottom')
     ax.legend(loc='lower left')
-    plt.show()
+    #plt.show()
+    
+    return fig
 
 #Polar_plot(satellite, antenna_site, observation_time)
